@@ -18,5 +18,12 @@ public class KindOfHand {
         return count;
     }
 
+    @Override
+    public String toString() {
+        return "KindOfHand{" +
+                "number=" + number +
+                ", count=" + count +
+                '}';
+    }
 }
 
