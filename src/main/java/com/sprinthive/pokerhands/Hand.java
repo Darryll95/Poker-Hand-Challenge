@@ -1,6 +1,5 @@
 package com.sprinthive.pokerhands;
-
-import com.sprinthive.pokerhands.handrank.BadPokerHandRanker;
+import com.sprinthive.pokerhands.handrank.GoodPokerHandRanker;
 import com.sprinthive.pokerhands.handrank.HandRank;
 import com.sprinthive.pokerhands.handrank.HandRanker;
 
@@ -10,8 +9,10 @@ public class Hand implements Comparable<Hand> {
 
     // This should be injected with an IOC container, but let's keep it simple.
     // Just replace BadPokerHandRanker with your own implementation
-    private static HandRanker handRanker = new BadPokerHandRanker();
-    private HandRank handRank;
+    private static final HandRanker handRanker = new /*BadPokerHandRanker*/
+            GoodPokerHandRanker();
+
+    private final HandRank handRank;
 
     public Hand(List<Card> cards) {
         handRank = handRanker.findBestHandRank(cards);
@@ -24,5 +25,6 @@ public class Hand implements Comparable<Hand> {
     public int compareTo(Hand other) {
         return handRank.compareTo(other.handRank);
     }
+
 }
 

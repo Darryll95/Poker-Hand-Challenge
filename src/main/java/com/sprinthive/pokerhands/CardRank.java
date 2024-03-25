@@ -6,7 +6,7 @@ public enum CardRank {
 
     private final int value;
 
-    private CardRank(int value) {
+    CardRank(int value) {
         this.value = value;
     }
 

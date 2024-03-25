@@ -19,6 +19,11 @@ public class HandRankTest {
         RoyalFlushHandRank royalFlushClubs = new RoyalFlushHandRank(Suit.CLUBS);
         RoyalFlushHandRank royalFlushSpades = new RoyalFlushHandRank(Suit.SPADES);
         assertEquals(0, royalFlushClubs.compareTo(royalFlushSpades));
+
+
+
+
+
         StraightFlushHandRank straightFlushJack = new StraightFlushHandRank(CardRank.JACK);
         assertTrue(royalFlushClubs.compareTo(straightFlushJack) > 0);
         StraightFlushHandRank straightFlushTen = new StraightFlushHandRank(CardRank.TEN);

@@ -3,13 +3,14 @@ package com.sprinthive.pokerhands.handrank;
 import com.sprinthive.pokerhands.Card;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HighCardHandRank extends HandRank<HighCardHandRank> {
     private final List<Card> cards;
 
     public HighCardHandRank(List<Card> cards) {
-        super(HandStrength.HI_CARD);
-        if (cards == null || cards.size() != 5) {
+        super(HandStrength.HIGH_CARD);
+       if (cards == null || cards.size() != 5) {
             throw new IllegalArgumentException("HighCardHandRank needs exactly 5 cards to make a high card ranked hand.");
         }
         this.cards = cards;

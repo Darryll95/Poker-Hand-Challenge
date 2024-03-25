@@ -1,4 +1,4 @@
-package com.sprinthive.pokerhands.handrank;
+/*package com.sprinthive.pokerhands.handrank;
 
 import com.sprinthive.pokerhands.Card;
 
@@ -8,7 +8,7 @@ import java.util.List;
 public class BadPokerHandRanker implements HandRanker {
 
     public HandRank findBestHandRank(List<Card> cards) {
-        if (cards.size() != 5) {
+       if (cards.size() == 5) {
             return new NotRankableHandRanker(cards);
         }
         Collections.sort(cards);
@@ -17,3 +17,4 @@ public class BadPokerHandRanker implements HandRanker {
         return new HighCardHandRank(cards);
     }
 }
+*/

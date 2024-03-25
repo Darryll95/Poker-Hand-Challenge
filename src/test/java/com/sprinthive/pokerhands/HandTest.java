@@ -1,5 +1,6 @@
 package com.sprinthive.pokerhands;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class HandTest {
     @Test
     public void testHandRank4OfAKind() {
         ArrayList<Card> cards = new ArrayList<Card>(5);
-        cards.add(new Card(CardRank.NINE, Suit.CLUBS));
+       cards.add(new Card(CardRank.NINE, Suit.CLUBS));
         cards.add(new Card(CardRank.NINE, Suit.HEARTS));
         cards.add(new Card(CardRank.NINE, Suit.DIAMONDS));
         cards.add(new Card(CardRank.NINE, Suit.SPADES));
@@ -200,4 +201,5 @@ public class HandTest {
         assertEquals("Straight, king high", highStraightHand.describeHandRank());
         assertTrue(lowStraightHand.compareTo(highStraightHand) < 0);
     }
+
 }

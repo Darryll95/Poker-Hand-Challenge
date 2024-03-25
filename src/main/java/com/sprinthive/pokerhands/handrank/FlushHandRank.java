@@ -1,24 +1,20 @@
 package com.sprinthive.pokerhands.handrank;
-
 import com.sprinthive.pokerhands.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class FlushHandRank extends HandRank<FlushHandRank> {
     private final List<Card> cards;
-
     public FlushHandRank(List<Card> cards) {
         super(HandStrength.FLUSH);
         if (cards == null || cards.size() != 5) {
             throw new IllegalArgumentException("HighCardHandRank needs exactly 5 cards to make a high card ranked hand.");
         }
-        this.cards = new ArrayList<Card>(cards);
+        this.cards = new ArrayList<>(cards);
         Collections.sort(this.cards);
         Collections.reverse(this.cards);
     }
-
     protected int compareSameRank(FlushHandRank other) {
         for (int i = 0; i < cards.size(); i++) {
             Card thisCard = cards.get(i);
@@ -30,8 +26,8 @@ public class FlushHandRank extends HandRank<FlushHandRank> {
         }
         return 0;
     }
-
     public String describeHand() {
-        return "Flush, " + cards.get(0).getRank() + " high";
+        return
+                "Flush, " + cards.get(0).getRank() + " high";
     }
 }
