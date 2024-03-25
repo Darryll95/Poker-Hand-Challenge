@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-public class BetterPokerHandRanker implements HandRanker {
+public class GoodPokerHandRanker implements HandRanker {
 
     public HandRank findBestHandRank(List<Card> cards) {
         if (cards.size() != 5) {
@@ -100,20 +100,7 @@ public class BetterPokerHandRanker implements HandRanker {
             }
         }
 
-        if (rankCounts.size() == 3) {
-            List<CardRank> pairs = new ArrayList<>();
-            CardRank kicker = null;
-            for (Map.Entry<CardRank, Integer> entry : rankCounts.entrySet()) {
-                if (entry.getValue() == 2) {
-                    pairs.add(entry.getKey()); // Add pair cards to the pairs list
-                } else {
-                    kicker = entry.getKey(); // Save the kicker card
-                }
-            }
-            if (pairs.size() == 2 && kicker != null) {
-                return new TwoPairHandRank(pairs.get(1), pairs.get(0), kicker);
-            }
-        }
+
 
         if (rankCounts.size() == 3) {
             CardRank highPair = null;
@@ -134,7 +121,20 @@ public class BetterPokerHandRanker implements HandRanker {
                 return new TwoPairHandRank(highPair, lowPair, kicker);
             }
         }
-
+        if (rankCounts.size() == 3) {
+            List<CardRank> pairs = new ArrayList<>();
+            CardRank kicker = null;
+            for (Map.Entry<CardRank, Integer> entry : rankCounts.entrySet()) {
+                if (entry.getValue() == 2) {
+                    pairs.add(entry.getKey()); // Add pair cards to the pairs list
+                } else {
+                    kicker = entry.getKey(); // Save the kicker card
+                }
+            }
+            if (pairs.size() == 2 && kicker != null) {
+                return new TwoPairHandRank(pairs.get(1), pairs.get(0), kicker);
+            }
+        }
         if (rankCounts.size() == 4) {
             CardRank pairRank = null;
             List<CardRank> secondParameter = new ArrayList<>(); // Dummy list for the rest parameter
