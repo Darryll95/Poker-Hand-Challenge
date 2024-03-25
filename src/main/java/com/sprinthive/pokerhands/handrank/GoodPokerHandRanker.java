@@ -100,8 +100,6 @@ public class GoodPokerHandRanker implements HandRanker {
             }
         }
 
-
-
         if (rankCounts.size() == 3) {
             CardRank highPair = null;
             CardRank lowPair = null;
@@ -126,9 +124,9 @@ public class GoodPokerHandRanker implements HandRanker {
             CardRank kicker = null;
             for (Map.Entry<CardRank, Integer> entry : rankCounts.entrySet()) {
                 if (entry.getValue() == 2) {
-                    pairs.add(entry.getKey()); // Add pair cards to the pairs list
+                    pairs.add(entry.getKey());
                 } else {
-                    kicker = entry.getKey(); // Save the kicker card
+                    kicker = entry.getKey();
                 }
             }
             if (pairs.size() == 2 && kicker != null) {
@@ -137,27 +135,24 @@ public class GoodPokerHandRanker implements HandRanker {
         }
         if (rankCounts.size() == 4) {
             CardRank pairRank = null;
-            List<CardRank> secondParameter = new ArrayList<>(); // Dummy list for the rest parameter
+            List<CardRank> secondParameter = new ArrayList<>();
             for (Map.Entry<CardRank, Integer> entry : rankCounts.entrySet()) {
                 if (entry.getValue() == 2) {
                     pairRank = entry.getKey();
                 } else {
-                    secondParameter.add(entry.getKey()); // Add the non-pair cards to the dummy list
+                    secondParameter.add(entry.getKey());
                 }
             }
             if (pairRank != null) {
                 return new OnePairHandRank(pairRank, secondParameter);
             }
         }
-
-        // No specific hand found, return the high card hand
         Collections.sort(cards, Collections.reverseOrder());
         return new HighCardHandRank(cards);
     }
 
     private boolean isStraightAceHigh(List<Card> cards) {
         Collections.sort(cards);
-        // Check if it's a straight with Ace high
         return cards.get(0).getRank() == CardRank.TEN &&
                 cards.get(1).getRank() == CardRank.JACK &&
                 cards.get(2).getRank() == CardRank.QUEEN &&
@@ -174,12 +169,10 @@ public class GoodPokerHandRanker implements HandRanker {
         }
         return true;
     }
-
     private CardRank findHighCard(List<Card> cards) {
         Collections.sort(cards);
         return cards.get(cards.size() - 1).getRank(); // The last card after sorting has the highest rank
     }
-
     private KindOfHand isThreeOrFourOfAKind(List<Card> cards) {
         Map<CardRank, Integer> rankCounts = new HashMap<>();
         for (Card card : cards) {
@@ -197,36 +190,33 @@ public class GoodPokerHandRanker implements HandRanker {
                 isStraightFlushWithSuit(Suit.HEARTS, cards) ||
                 isStraightFlushWithSuit(Suit.SPADES, cards) ||
                 isStraightFlushWithSuit(Suit.DIAMONDS, cards)) {
-            // It's a straight flush with any suit
+
             return true;
         } else {
-            // It's not a straight flush with any suit
+
             return false;
         }
     }
-
     private boolean isStraightFlushWithSuit(Suit suit, List<Card> cards) {
         if (isFlush(suit, cards) && isStraightWithSuit(suit, cards)) {
-            // It's a straight flush with the given suit
+
             return true;
         }
         return false;
     }
-
     private boolean isStraightWithSuit(Suit suit, List<Card> cards) {
         List<Card> filteredCards = cards.stream()
                 .filter(card -> card.getSuit() == suit)
                 .collect(Collectors.toList());
 
-        // Check if the filtered cards form a straight
+
         return isStraight(filteredCards);
     }
-
     private boolean isFlush(Suit suit, List<Card> cards) {
         AtomicBoolean allSameSuit = new AtomicBoolean(true);
 
         cards.forEach(card -> {
-            // Check if all cards have the same suit
+
             if (card.getSuit() != suit) {
                 allSameSuit.set(false);
             }
@@ -234,7 +224,6 @@ public class GoodPokerHandRanker implements HandRanker {
 
         return allSameSuit.get();
     }
-
     private boolean isFullHouseHandRank(List<Card> cards) {
         Map<CardRank, Integer> rankCount = new HashMap<>();
         for (Card card : cards) {
@@ -247,7 +236,6 @@ public class GoodPokerHandRanker implements HandRanker {
         }
         return false;
     }
-
     private CardRank[] getFullHouseRanks(List<Card> cards) {
         Map<CardRank, Integer> rankCount = new HashMap<>();
         for (Card card : cards) {
@@ -256,27 +244,26 @@ public class GoodPokerHandRanker implements HandRanker {
         CardRank[] ranks = new CardRank[2];
         for (Map.Entry<CardRank, Integer> entry : rankCount.entrySet()) {
             if (entry.getValue() == 3) {
-                ranks[0] = entry.getKey(); // Triplet rank
+                ranks[0] = entry.getKey();
             } else if (entry.getValue() == 2) {
-                ranks[1] = entry.getKey(); // Pair rank
+                ranks[1] = entry.getKey();
             }
         }
         return ranks;
     }
-
     private boolean isRoyalFlush(Suit suit, List<Card> royalCards) {
         if (isFlush(suit, royalCards)) {
             Map<CardRank, Integer> rankCounts = new HashMap<>();
             for (Card card : royalCards) {
                 rankCounts.put(card.getRank(), rankCounts.getOrDefault(card.getRank(), 0) + 1);
             }
-
             if (rankCounts.containsKey(CardRank.ACE) &&
                     rankCounts.containsKey(CardRank.KING) &&
                     rankCounts.containsKey(CardRank.QUEEN) &&
                     rankCounts.containsKey(CardRank.JACK) &&
                     rankCounts.containsKey(CardRank.TEN)
-            ) {
+            )
+            {
                 return true;
             }
         }
